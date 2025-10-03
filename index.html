@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BscScan | BNB Smart Chain Explorer</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -13,201 +13,277 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+            line-height: 1.5;
         }
 
-        .header {
-            background: linear-gradient(135deg, #f3ba2f, #ffd700);
-            padding: 1rem 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        /* Header */
+        .navbar {
+            background: #fff;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            position: sticky;
+            top: 0;
+            z-index: 1020;
         }
 
-        .container {
-            max-width: 1200px;
+        .navbar-container {
+            max-width: 1140px;
             margin: 0 auto;
             padding: 0 15px;
-        }
-
-        .header-content {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
+            height: 70px;
         }
 
-        .logo {
+        .navbar-brand {
             display: flex;
             align-items: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: #000;
+            font-size: 20px;
+            font-weight: 600;
+            color: #3498db;
+            text-decoration: none;
         }
 
-        .logo i {
-            margin-right: 10px;
-            background: #000;
-            color: #f3ba2f;
-            padding: 8px;
-            border-radius: 50%;
+        .navbar-brand img {
+            height: 24px;
+            width: 24px;
+            margin-right: 8px;
         }
 
-        .search-bar {
-            display: flex;
-            align-items: center;
-            background: white;
-            border-radius: 25px;
-            padding: 8px 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            width: 400px;
-        }
-
-        .search-bar input {
-            border: none;
-            outline: none;
+        .search-container {
             flex: 1;
-            padding: 8px;
+            max-width: 600px;
+            margin: 0 30px;
+        }
+
+        .search-form {
+            position: relative;
+            display: flex;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 50px 10px 16px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
             font-size: 14px;
-        }
-
-        .search-bar button {
-            background: #f3ba2f;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-
-        .nav {
             background: #fff;
-            padding: 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #3498db;
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-item {
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Main Navigation */
+        .main-nav {
+            background: #fff;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .main-nav-container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 15px;
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
             margin: 0;
-        }
-
-        .nav-menu li {
-            position: relative;
-        }
-
-        .nav-menu a {
-            display: block;
-            padding: 15px 20px;
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .nav-menu a:hover {
-            background: #f8f9fa;
-            color: #f3ba2f;
-        }
-
-        .main-content {
-            padding: 30px 0;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border-left: 4px solid #f3ba2f;
-        }
-
-        .stat-card h3 {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .stat-card .value {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .section {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .section-header {
-            background: #f8f9fa;
-            padding: 15px 20px;
-            border-bottom: 1px solid #dee2e6;
-            border-radius: 8px 8px 0 0;
-        }
-
-        .section-header h2 {
-            font-size: 18px;
-            color: #333;
-            display: flex;
-            align-items: center;
-        }
-
-        .section-header i {
-            margin-right: 10px;
-            color: #f3ba2f;
-        }
-
-        .section-content {
             padding: 0;
         }
 
-        .transaction-item, .block-item {
-            display: flex;
-            align-items: center;
-            padding: 15px 20px;
-            border-bottom: 1px solid #f1f3f4;
+        .nav-menu > li {
+            position: relative;
         }
 
-        .transaction-item:last-child, .block-item:last-child {
+        .nav-menu > li > a {
+            display: block;
+            padding: 12px 16px;
+            color: #495057;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .nav-menu > li > a:hover,
+        .nav-menu > li.active > a {
+            color: #3498db;
+            border-bottom-color: #3498db;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 24px 15px;
+        }
+
+        /* Stats Cards */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+        }
+
+        .stat-icon.bnb { background: rgba(243, 186, 47, 0.1); color: #f3ba2f; }
+        .stat-icon.market { background: rgba(52, 152, 219, 0.1); color: #3498db; }
+        .stat-icon.tx { background: rgba(46, 204, 113, 0.1); color: #2ecc71; }
+        .stat-icon.gas { background: rgba(231, 76, 60, 0.1); color: #e74c3c; }
+
+        .stat-content h6 {
+            color: #6c757d;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-content .value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #212529;
+        }
+
+        .stat-content .change {
+            font-size: 12px;
+            margin-left: 8px;
+        }
+
+        .change.positive { color: #2ecc71; }
+        .change.negative { color: #e74c3c; }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: #f8f9fa;
+            padding: 16px 20px;
+            border-bottom: 1px solid #dee2e6;
+            font-weight: 600;
+            font-size: 16px;
+            color: #495057;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-header i {
+            color: #6c757d;
+            margin-right: 8px;
+        }
+
+        .card-body {
+            padding: 0;
+        }
+
+        /* Transaction/Block Items */
+        .list-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #f1f3f4;
+            transition: background-color 0.2s;
+        }
+
+        .list-item:hover {
+            background: #f8f9fa;
+        }
+
+        .list-item:last-child {
             border-bottom: none;
         }
 
         .item-icon {
-            width: 40px;
-            height: 40px;
-            background: #f3ba2f;
-            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
-            color: white;
+            margin-right: 12px;
+            font-size: 14px;
         }
+
+        .item-icon.tx { background: rgba(52, 152, 219, 0.1); color: #3498db; }
+        .item-icon.block { background: rgba(155, 89, 182, 0.1); color: #9b59b6; }
 
         .item-details {
             flex: 1;
+            min-width: 0;
         }
 
         .item-hash {
-            color: #007bff;
+            color: #3498db;
             text-decoration: none;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 13px;
+            font-weight: 500;
         }
 
         .item-hash:hover {
@@ -216,25 +292,39 @@
 
         .item-meta {
             font-size: 12px;
-            color: #666;
-            margin-top: 5px;
+            color: #6c757d;
+            margin-top: 2px;
         }
 
         .item-value {
             text-align: right;
-            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .item-value .amount {
+            font-size: 13px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .item-value .fee {
+            font-size: 11px;
+            color: #6c757d;
+            display: block;
+            margin-top: 2px;
         }
 
         .view-all {
+            padding: 12px 20px;
             text-align: center;
-            padding: 15px;
             background: #f8f9fa;
             border-top: 1px solid #dee2e6;
         }
 
         .view-all a {
-            color: #007bff;
+            color: #3498db;
             text-decoration: none;
+            font-size: 13px;
             font-weight: 500;
         }
 
@@ -242,293 +332,452 @@
             text-decoration: underline;
         }
 
+        /* Footer */
         .footer {
             background: #2c3e50;
-            color: white;
-            padding: 40px 0;
-            margin-top: 50px;
+            color: #95a5a6;
+            padding: 40px 0 20px;
+            margin-top: 48px;
         }
 
-        .footer-content {
+        .footer-container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
         }
 
-        .footer-section h3 {
-            margin-bottom: 15px;
-            color: #f3ba2f;
+        .footer-section h6 {
+            color: #ecf0f1;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
         }
 
-        .footer-section a {
-            color: #bdc3c7;
-            text-decoration: none;
-            display: block;
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
             margin-bottom: 8px;
         }
 
-        .footer-section a:hover {
-            color: white;
+        .footer-links a {
+            color: #95a5a6;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
         }
 
+        .footer-links a:hover {
+            color: #ecf0f1;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #34495e;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .header-content {
+            .navbar-container {
                 flex-direction: column;
-                gap: 15px;
+                height: auto;
+                padding: 16px 15px;
             }
 
-            .search-bar {
+            .search-container {
                 width: 100%;
+                margin: 16px 0 0 0;
+                max-width: none;
             }
 
             .content-grid {
                 grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
             }
 
             .nav-menu {
                 flex-wrap: wrap;
             }
+
+            .nav-menu > li > a {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-cube"></i>
-                    BscScan
-                </div>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search by Address / Txn Hash / Block / Token / Domain Name">
-                    <button type="submit">
+    <!-- Header -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-brand">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L2 7v10c0 5.55 3.84 9.739 9 11 5.16-1.261 9-5.45 9-11V7l-10-5z"/>
+                </svg>
+                BscScan
+            </a>
+            
+            <div class="search-container">
+                <form class="search-form">
+                    <input type="text" class="search-input" placeholder="Search by Address / Txn Hash / Block / Token / Domain Name">
+                    <button type="submit" class="search-btn">
                         <i class="fas fa-search"></i>
                     </button>
-                </div>
+                </form>
+            </div>
+            
+            <div class="navbar-nav">
+                <a href="#" class="nav-item">Sign In</a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-moon"></i>
+                </a>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <nav class="nav">
-        <div class="container">
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <div class="main-nav-container">
             <ul class="nav-menu">
-                <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="#"><i class="fas fa-cubes"></i> Blockchain</a></li>
-                <li><a href="#"><i class="fas fa-users"></i> Validators</a></li>
-                <li><a href="#"><i class="fas fa-coins"></i> Tokens</a></li>
-                <li><a href="#"><i class="fas fa-image"></i> NFTs</a></li>
-                <li><a href="#"><i class="fas fa-chart-bar"></i> Resources</a></li>
-                <li><a href="#"><i class="fas fa-code"></i> Developers</a></li>
-                <li><a href="#"><i class="fas fa-ellipsis-h"></i> More</a></li>
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Blockchain</a></li>
+                <li><a href="#">Validators</a></li>
+                <li><a href="#">Tokens</a></li>
+                <li><a href="#">NFTs</a></li>
+                <li><a href="#">Resources</a></li>
+                <li><a href="#">Developers</a></li>
+                <li><a href="#">More</a></li>
             </ul>
         </div>
     </nav>
 
-    <main class="main-content">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>BNB Price</h3>
-                    <div class="value">$642.45</div>
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Stats Cards -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-icon bnb">
+                    <i class="fab fa-bitcoin"></i>
                 </div>
-                <div class="stat-card">
-                    <h3>Market Cap</h3>
-                    <div class="value">$93.2B</div>
-                </div>
-                <div class="stat-card">
-                    <h3>Transactions</h3>
-                    <div class="value">8.2B</div>
-                </div>
-                <div class="stat-card">
-                    <h3>Total Addresses</h3>
-                    <div class="value">285M</div>
+                <div class="stat-content">
+                    <h6>BNB Price</h6>
+                    <div class="value">
+                        $642.45
+                        <span class="change positive">+2.34%</span>
+                    </div>
                 </div>
             </div>
-
-            <div class="content-grid">
-                <div class="section">
-                    <div class="section-header">
-                        <h2><i class="fas fa-exchange-alt"></i>Latest Transactions</h2>
-                    </div>
-                    <div class="section-content">
-                        <div class="transaction-item">
-                            <div class="item-icon">
-                                <i class="fas fa-arrow-right"></i>
-                            </div>
-                            <div class="item-details">
-                                <a href="#" class="item-hash">0xa8b2c3d4e5f6789012345678901234567890ab12</a>
-                                <div class="item-meta">2 secs ago</div>
-                            </div>
-                            <div class="item-value">0.1254 BNB</div>
-                        </div>
-                        <div class="transaction-item">
-                            <div class="item-icon">
-                                <i class="fas fa-arrow-right"></i>
-                            </div>
-                            <div class="item-details">
-                                <a href="#" class="item-hash">0xb9c3d4e5f67890123456789012345678901234cd</a>
-                                <div class="item-meta">5 secs ago</div>
-                            </div>
-                            <div class="item-value">2.456 BNB</div>
-                        </div>
-                        <div class="transaction-item">
-                            <div class="item-icon">
-                                <i class="fas fa-arrow-right"></i>
-                            </div>
-                            <div class="item-details">
-                                <a href="#" class="item-hash">0xc4d5e6f7890123456789012345678901234567ef</a>
-                                <div class="item-meta">8 secs ago</div>
-                            </div>
-                            <div class="item-value">0.0123 BNB</div>
-                        </div>
-                        <div class="transaction-item">
-                            <div class="item-icon">
-                                <i class="fas fa-arrow-right"></i>
-                            </div>
-                            <div class="item-details">
-                                <a href="#" class="item-hash">0xd5e6f78901234567890123456789012345678901</a>
-                                <div class="item-meta">12 secs ago</div>
-                            </div>
-                            <div class="item-value">1.789 BNB</div>
-                        </div>
-                    </div>
-                    <div class="view-all">
-                        <a href="#">View all transactions</a>
-                    </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon market">
+                    <i class="fas fa-chart-line"></i>
                 </div>
-
-                <div class="section">
-                    <div class="section-header">
-                        <h2><i class="fas fa-cube"></i>Latest Blocks</h2>
-                    </div>
-                    <div class="section-content">
-                        <div class="block-item">
-                            <div class="item-icon">
-                                <i class="fas fa-cube"></i>
-                            </div>
-                            <div class="item-details">
-                                <a href="#" class="item-hash">42,156,789</a>
-                                <div class="item-meta">3 secs ago • 245 txns</div>
-                            </div>
-                            <div class="item-value">0.045 BNB</div>
-                        </div>
-                        <div class="block-item">
-                            <div class="item-icon">
-                                <i class="fas fa-cube"></i>
-                            </div>
-                            <div class="item-details">
-                                <a href="#" class="item-hash">42,156,788</a>
-                                <div class="item-meta">6 secs ago • 198 txns</div>
-                            </div>
-                            <div class="item-value">0.038 BNB</div>
-                        </div>
-                        <div class="block-item">
-                            <div class="item-icon">
-                                <i class="fas fa-cube"></i>
-                            </div>
-                            <div class="item-details">
-                                <a href="#" class="item-hash">42,156,787</a>
-                                <div class="item-meta">9 secs ago • 302 txns</div>
-                            </div>
-                            <div class="item-value">0.052 BNB</div>
-                        </div>
-                        <div class="block-item">
-                            <div class="item-icon">
-                                <i class="fas fa-cube"></i>
-                            </div>
-                            <div class="item-details">
-                                <a href="#" class="item-hash">42,156,786</a>
-                                <div class="item-meta">12 secs ago • 167 txns</div>
-                            </div>
-                            <div class="item-value">0.029 BNB</div>
-                        </div>
-                    </div>
-                    <div class="view-all">
-                        <a href="#">View all blocks</a>
-                    </div>
+                <div class="stat-content">
+                    <h6>Market Cap</h6>
+                    <div class="value">$93,234,567,890</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon tx">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <div class="stat-content">
+                    <h6>Transactions</h6>
+                    <div class="value">8,234,567,890</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon gas">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="stat-content">
+                    <h6>Med Gas Price</h6>
+                    <div class="value">3 Gwei</div>
                 </div>
             </div>
         </div>
-    </main>
 
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Latest Transactions -->
+            <div class="card">
+                <div class="card-header">
+                    <span><i class="fas fa-list"></i>Latest Transactions</span>
+                    <small>More than >99,999 transactions found</small>
+                </div>
+                <div class="card-body">
+                    <div class="list-item">
+                        <div class="item-icon tx">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="item-details">
+                            <a href="#" class="item-hash">0xa8b2c3d4e5f6789012345678901234567890ab12cd34ef56789012345678901234</a>
+                            <div class="item-meta">2 secs ago</div>
+                        </div>
+                        <div class="item-value">
+                            <span class="amount">0.1254 BNB</span>
+                            <span class="fee">Fee: 0.000841</span>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="item-icon tx">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="item-details">
+                            <a href="#" class="item-hash">0xb9c3d4e5f67890123456789012345678901234cdfe78901234567890123456789</a>
+                            <div class="item-meta">5 secs ago</div>
+                        </div>
+                        <div class="item-value">
+                            <span class="amount">2.456 BNB</span>
+                            <span class="fee">Fee: 0.001259</span>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="item-icon tx">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="item-details">
+                            <a href="#" class="item-hash">0xc4d5e6f7890123456789012345678901234567ef12890123456789012345678901</a>
+                            <div class="item-meta">8 secs ago</div>
+                        </div>
+                        <div class="item-value">
+                            <span class="amount">0.0123 BNB</span>
+                            <span class="fee">Fee: 0.000421</span>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="item-icon tx">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="item-details">
+                            <a href="#" class="item-hash">0xd5e6f78901234567890123456789012345678901ab23456789012345678901234</a>
+                            <div class="item-meta">12 secs ago</div>
+                        </div>
+                        <div class="item-value">
+                            <span class="amount">1.789 BNB</span>
+                            <span class="fee">Fee: 0.000963</span>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="item-icon tx">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="item-details">
+                            <a href="#" class="item-hash">0xe6f789012345678901234567890123456789012cd345678901234567890123456</a>
+                            <div class="item-meta">15 secs ago</div>
+                        </div>
+                        <div class="item-value">
+                            <span class="amount">0.567 BNB</span>
+                            <span class="fee">Fee: 0.000684</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-all">
+                    <a href="#">View all transactions</a>
+                </div>
+            </div>
+
+            <!-- Latest Blocks -->
+            <div class="card">
+                <div class="card-header">
+                    <span><i class="fas fa-cube"></i>Latest Blocks</span>
+                    <small>Block #42,156,789</small>
+                </div>
+                <div class="card-body">
+                    <div class="list-item">
+                        <div class="item-icon block">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <div class="item-details">
+                            <a href="#" class="item-hash">42156789</a>
+                            <div class="item-meta">3 secs ago • 245 txns</div>
+                        </div>
+                        <div class="item-value">
+                            <span class="amount">0.045 BNB</span>
+                            <span class="fee">Validator: 0x1a2b3c</span>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="item-icon block">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <div class="item-details">
+                            <a href="#" class="item-hash">42156788</a>
+                            <div class="item-meta">6 secs ago • 198 txns</div>
+                        </div>
+                        <div class="item-value">
+                            <span class="amount">0.038 BNB</span>
+                            <span class="fee">Validator: 0x4d5e6f</span>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="item-icon block">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <div class="item-details">
+                            <a href="#" class="item-hash">42156787</a>
+                            <div class="item-meta">9 secs ago • 302 txns</div>
+                        </div>
+                        <div class="item-value">
+                            <span class="amount">0.052 BNB</span>
+                            <span class="fee">Validator: 0x7g8h9i</span>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="item-icon block">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <div class="item-details">
+                            <a href="#" class="item-hash">42156786</a>
+                            <div class="item-meta">12 secs ago • 167 txns</div>
+                        </div>
+                        <div class="item-value">
+                            <span class="amount">0.029 BNB</span>
+                            <span class="fee">Validator: 0xj1k2l3</span>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="item-icon block">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <div class="item-details">
+                            <a href="#" class="item-hash">42156785</a>
+                            <div class="item-meta">15 secs ago • 223 txns</div>
+                        </div>
+                        <div class="item-value">
+                            <span class="amount">0.041 BNB</span>
+                            <span class="fee">Validator: 0xm4n5o6</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-all">
+                    <a href="#">View all blocks</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
+        <div class="footer-container">
+            <div class="footer-grid">
                 <div class="footer-section">
-                    <h3>Company</h3>
-                    <a href="#">About Us</a>
-                    <a href="#">Brand Assets</a>
-                    <a href="#">Contact Us</a>
-                    <a href="#">Careers</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Bug Bounty</a>
+                    <h6>Company</h6>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Brand Assets</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Bug Bounty</a></li>
+                    </ul>
                 </div>
+                
                 <div class="footer-section">
-                    <h3>Community</h3>
-                    <a href="#">API Plans</a>
-                    <a href="#">Documentation</a>
-                    <a href="#">Knowledge Base</a>
-                    <a href="#">Newsletter</a>
-                    <a href="#">Telegram</a>
-                    <a href="#">Twitter</a>
+                    <h6>Community</h6>
+                    <ul class="footer-links">
+                        <li><a href="#">API Plans</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Knowledge Base</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="#">Telegram</a></li>
+                        <li><a href="#">Twitter</a></li>
+                    </ul>
                 </div>
+                
                 <div class="footer-section">
-                    <h3>Products & Services</h3>
-                    <a href="#">Advertise</a>
-                    <a href="#">Explorer-as-a-Service</a>
-                    <a href="#">API Services</a>
-                    <a href="#">Verified Signatures</a>
-                    <a href="#">Smart Contract Search</a>
-                    <a href="#">Directory</a>
+                    <h6>Products & Services</h6>
+                    <ul class="footer-links">
+                        <li><a href="#">Advertise</a></li>
+                        <li><a href="#">Explorer-as-a-Service</a></li>
+                        <li><a href="#">API Services</a></li>
+                        <li><a href="#">Verified Signatures</a></li>
+                        <li><a href="#">Smart Contract Search</a></li>
+                        <li><a href="#">Directory</a></li>
+                    </ul>
                 </div>
+                
                 <div class="footer-section">
-                    <h3>BscScan</h3>
-                    <p>BscScan is a Block Explorer and Analytics Platform for Binance Smart Chain, a decentralized smart contracts platform.</p>
+                    <h6>BscScan</h6>
+                    <ul class="footer-links">
+                        <li><a href="#">Donate</a></li>
+                        <li><a href="#">PoS Tracker</a></li>
+                        <li><a href="#">Beacon Chain</a></li>
+                        <li><a href="#">Charts & Stats</a></li>
+                    </ul>
                 </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>BscScan is a Block Explorer and Analytics Platform for Binance Smart Chain, a decentralized smart contracts platform.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Add basic interactivity
+        // Real-time updates simulation
         document.addEventListener('DOMContentLoaded', function() {
             // Search functionality
-            const searchInput = document.querySelector('.search-bar input');
-            const searchButton = document.querySelector('.search-bar button');
+            const searchForm = document.querySelector('.search-form');
+            const searchInput = document.querySelector('.search-input');
             
-            searchButton.addEventListener('click', function(e) {
+            searchForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 const query = searchInput.value.trim();
                 if (query) {
-                    alert('Search functionality would redirect to: ' + query);
+                    // Simulate search
+                    console.log('Searching for:', query);
                 }
             });
 
-            searchInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    searchButton.click();
-                }
-            });
+            // Live updates for stats
+            function updateStats() {
+                const priceElement = document.querySelector('.stat-content .value');
+                const currentPrice = parseFloat(priceElement.textContent.replace('$', '').replace(',', ''));
+                const change = (Math.random() - 0.5) * 2;
+                const newPrice = (currentPrice + change).toFixed(2);
+                priceElement.innerHTML = `$${newPrice} <span class="change ${change >= 0 ? 'positive' : 'negative'}">${change >= 0 ? '+' : ''}${change.toFixed(2)}%</span>`;
+            }
 
-            // Add hover effects to transaction/block items
-            const items = document.querySelectorAll('.transaction-item, .block-item');
-            items.forEach(item => {
+            // Update every 10 seconds
+            setInterval(updateStats, 10000);
+
+            // Hover effects
+            const listItems = document.querySelectorAll('.list-item');
+            listItems.forEach(item => {
                 item.addEventListener('mouseenter', function() {
-                    this.style.backgroundColor = '#f8f9fa';
+                    this.style.transform = 'translateX(2px)';
                 });
                 item.addEventListener('mouseleave', function() {
-                    this.style.backgroundColor = '';
+                    this.style.transform = 'translateX(0)';
                 });
             });
-
-            // Update stats periodically (simulation)
-            setInterval(function() {
-                const priceElement = document.querySelector('.stat-card .value');
-                const currentPrice = parseFloat(priceElement.textContent.replace('$', ''));
-                const change = (Math.random() - 0.5) * 2; // Random change between -1 and 1
-                const newPrice = (currentPrice + change).toFixed(2);
-                priceElement.textContent = '$' + newPrice;
-            }, 10000); // Update every 10 seconds
         });
     </script>
 </body>
